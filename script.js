@@ -9,6 +9,23 @@ const btnOperator = document.querySelectorAll('.btn_operator');
 const equals = document.querySelector('.btn_equals');
 const allClear = document.querySelector('#allClear');
 
+const one = document.querySelector('#one');
+const two = document.querySelector('#two');
+const three = document.querySelector('#three');
+const four = document.querySelector('#four');
+const five = document.querySelector('#five');
+const six = document.querySelector('#six');
+const seven = document.querySelector('#seven');
+const eight = document.querySelector('#eight');
+const nine = document.querySelector('#nine');
+const zero = document.querySelector('#zero');
+
+const add = document.querySelector('#add');
+const subtract = document.querySelector('#subtract');
+const multiply = document.querySelector('#multiply');
+const divide = document.querySelector('#divide');
+const remainer = document.querySelector('#remainer');
+
 let acc = ''; // accumalator
 let operator = '';
 let number2 = '';
@@ -94,11 +111,8 @@ const clearAll = function () {
     allClearPressed = false;
 };
 
-// EVENT HANDLERS
-
-btn.forEach(btn => btn.addEventListener("click", function (e) {
-
-    // All number buttons
+// get Number
+const getNum = function (btn) {
     btnNumber.forEach(function (n) {
         // First number a
         if (n.value === btn.value && opSwitch === false) {
@@ -122,10 +136,12 @@ btn.forEach(btn => btn.addEventListener("click", function (e) {
             equalsPressed2 = false;
         };
     });
+};
 
-    // All operator buttons
+// get Operator
+const getOp = function (btn) {
     btnOperator.forEach(function (o) {
-        // if equals is pressed right before and user tries to enter number (it will operate smoothly)
+        // if equals is pressed right before and user tries to enter operator (it will operate smoothly)
         if (o.value === btn.value && equalsPressed2) equalsPressed2 = false;
 
         // operator used first time
@@ -148,11 +164,9 @@ btn.forEach(btn => btn.addEventListener("click", function (e) {
             updateDisplay();
         }
     });
+};
 
-}));
-
-// Equals
-equals.addEventListener('click', function (e) {
+const getEquals = function () {
     if (firstNumSwitch === false) {
         operate(acc, operator, number2);
 
@@ -161,8 +175,43 @@ equals.addEventListener('click', function (e) {
         updateDisplay();
         equalsPressed = false;
     }
-});
+};
+
+// EVENT HANDLERS
+
+// on click
+// getting Numbers and operators
+btn.forEach(btnn => btnn.addEventListener("click", function (e) {
+    getNum(btnn);
+    getOp(btnn);
+}));
+
+// getting Equals
+equals.addEventListener('click', getEquals);
 
 // AllClear
 allClear.addEventListener('click', clearAll);
 
+// on Key
+document.addEventListener('keydown', function (k) {
+    if (k.key === '1') getNum(one);
+    if (k.key === '2') getNum(two);
+    if (k.key === '3') getNum(three);
+    if (k.key === '4') getNum(four);
+    if (k.key === '5') getNum(five);
+    if (k.key === '6') getNum(six);
+    if (k.key === '7') getNum(seven);
+    if (k.key === '8') getNum(eight);
+    if (k.key === '9') getNum(nine);
+    if (k.key === '0') getNum(zero);
+
+    if (k.key === '+') getOp(add);
+    if (k.key === '-') getOp(subtract);
+    if (k.key === '*') getOp(multiply);
+    if (k.key === '/') getOp(divide);
+    if (k.key === '%') getOp(remainer);
+
+    if (k.key === 'Enter' || k.key === '=') getEquals();
+
+    if (k.keyCode === 32) clearAll(); // spacebar
+});
