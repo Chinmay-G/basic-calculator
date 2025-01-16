@@ -8,6 +8,7 @@ const btnNumber = document.querySelectorAll('.btn_number');
 const btnOperator = document.querySelectorAll('.btn_operator');
 const equals = document.querySelector('.btn_equals');
 const allClear = document.querySelector('#allClear');
+const backspace = document.querySelector('#backspace');
 
 const one = document.querySelector('#one');
 const two = document.querySelector('#two');
@@ -36,6 +37,9 @@ let firstNumSwitch = false;
 let equalsPressed = false;
 let equalsPressed2 = false;
 let allClearPressed = false;
+let backspaceSwitch = false;
+let opOn = false;
+let num2On = false;
 
 let result = '';
 
@@ -128,6 +132,8 @@ const getNum = function (btn) {
             firstNumSwitch = false;
 
             updateDisplay();
+            opOn = false;
+            num2On = true;
         }
 
         // if equals is pressed right before and user tries to enter number
@@ -150,6 +156,9 @@ const getOp = function (btn) {
 
             updateDisplay();
             opSwitch = true;
+
+            // opOn = true;
+            // num2On = false;
         }
 
         // operator used second time or more
@@ -162,6 +171,9 @@ const getOp = function (btn) {
             firstNumSwitch = true;
 
             updateDisplay();
+
+            // opOn = true;
+            // num2On = false;
         }
     });
 };
@@ -191,6 +203,24 @@ equals.addEventListener('click', getEquals);
 
 // AllClear
 allClear.addEventListener('click', clearAll);
+
+// Backspace
+// backspace.addEventListener('click', function () {
+//     backspaceSwitch = true;
+//     if (opSwitch === false) {
+//         acc = acc.slice(0, -1);
+//         updateDisplay();
+//     }
+//     if (opOn) {
+//         operator = '';
+//         opOn = false;
+//         updateDisplay();
+//     }
+//     if (num2On) {
+//         number2 = number2.slice(0, -1);
+//         updateDisplay();
+//     }
+// });
 
 // on Key
 document.addEventListener('keydown', function (k) {
