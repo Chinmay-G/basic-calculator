@@ -18,10 +18,11 @@ body {
 }
 
 p {
-    font-size: 40px;
-    margin-bottom: 20px;
+    text-align: left;
+    font-size: 18px;
+    margin: 3px 0 -26px 10px;
     color:darkgrey;
-    /* font-weight: 600; */
+    font-weight: 600;
 }
 
 .main {
@@ -96,15 +97,23 @@ p {
 }
 
 footer {
-    /* text-align: right; */
-    font-size: 13px;
-    margin-top: 30px;
+    text-align: right;
+    font-size: 12px;
+    margin-top: -20px;
+    margin-right: 10px;
     color: lightgrey;
 }
 
 @media only screen and (max-width: 700px) {
     * {
-        scale: 0.93;
+        scale: 0.925;
+    }
+
+    p {
+        text-align: center;
+        font-size: 35px;
+        margin: 0 0 10px 0;
+        /* font-weight: 600; */
     }
 
     .container {
@@ -123,5 +132,11 @@ footer {
     .btn {
         font-weight: 600;
         box-shadow: 2px 2px black;
+    }
+
+    footer {
+        text-align: center;
+        margin-top: 15px;
+        margin-right: 0;
     }
 }
