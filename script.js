@@ -9,6 +9,7 @@ const btnOperator = document.querySelectorAll('.btn_operator');
 const equals = document.querySelector('.btn_equals');
 const allClear = document.querySelector('#allClear');
 const backspace = document.querySelector('#backspace');
+const signChange = document.querySelector('#signChange');
 
 const one = document.querySelector('#one');
 const two = document.querySelector('#two');
@@ -20,6 +21,7 @@ const seven = document.querySelector('#seven');
 const eight = document.querySelector('#eight');
 const nine = document.querySelector('#nine');
 const zero = document.querySelector('#zero');
+const point = document.querySelector('#point');
 
 const add = document.querySelector('#add');
 const subtract = document.querySelector('#subtract');
@@ -38,12 +40,10 @@ let equalsPressed = false;
 let equalsPressed2 = false;
 let allClearPressed = false;
 let backspaceSwitch = false;
-let opOn = false;
-let num2On = false;
 
 let result = '';
 
-//FUNCTIONS
+// FUNCTIONS ///////////////////////////
 
 // Operations
 const operate = function (a, op, b) {
@@ -62,6 +62,8 @@ const operate = function (a, op, b) {
             break;
         default: break;
     };
+
+    result = Math.round((result + Number.EPSILON) * 100000) / 100000; // decimal rounded off to 5 places
     return result;
 };
 
@@ -120,7 +122,14 @@ const getNum = function (btn) {
     btnNumber.forEach(function (n) {
         // First number a
         if (n.value === btn.value && opSwitch === false) {
-            acc = acc + n.value;
+
+            switch (n.value) {
+                case '.':
+                    if (acc.includes('.')) { }
+                    else acc = acc + n.value;
+                    break;
+                default: acc = acc + n.value;
+            }
             firstNumSwitch = true;
 
             updateDisplay();
@@ -128,12 +137,17 @@ const getNum = function (btn) {
 
         // Second number b
         if (n.value === btn.value && opSwitch === true) {
-            number2 = number2 + n.value;
+
+            switch (n.value) {
+                case '.':
+                    if (number2.includes('.')) { }
+                    else number2 = number2 + n.value;
+                    break;
+                default: number2 = number2 + n.value;
+            }
             firstNumSwitch = false;
 
             updateDisplay();
-            opOn = false;
-            num2On = true;
         }
 
         // if equals is pressed right before and user tries to enter number
@@ -156,9 +170,6 @@ const getOp = function (btn) {
 
             updateDisplay();
             opSwitch = true;
-
-            // opOn = true;
-            // num2On = false;
         }
 
         // operator used second time or more
@@ -171,13 +182,11 @@ const getOp = function (btn) {
             firstNumSwitch = true;
 
             updateDisplay();
-
-            // opOn = true;
-            // num2On = false;
         }
     });
 };
 
+// get Equals
 const getEquals = function () {
     if (firstNumSwitch === false) {
         operate(acc, operator, number2);
@@ -189,9 +198,35 @@ const getEquals = function () {
     }
 };
 
-// EVENT HANDLERS
+// get Backspace
+const getBackspace = function () {
+    if (opSwitch === false && equalsPressed2 === false) {
+        acc = acc.slice(0, -1);
+        updateDisplay();
+    }
+    if (opSwitch === true && firstNumSwitch === false && equalsPressed2 === false) {
+        number2 = number2.slice(0, -1);
+        updateDisplay();
+    }
+};
 
-// on click
+// change Sign
+const changeSign = function () {
+    if (opSwitch === false && equalsPressed2 === false) {
+        acc = -acc;
+        updateDisplay();
+    }
+    if (opSwitch === true && firstNumSwitch === false && equalsPressed2 === false) {
+        number2 = -number2;
+        updateDisplay();
+    }
+    if (equalsPressed2 === true) { }
+};
+
+
+// EVENT HANDLERS ///////////////////
+
+// on Click
 // getting Numbers and operators
 btn.forEach(btnn => btnn.addEventListener("click", function (e) {
     getNum(btnn);
@@ -205,25 +240,16 @@ equals.addEventListener('click', getEquals);
 allClear.addEventListener('click', clearAll);
 
 // Backspace
-// backspace.addEventListener('click', function () {
-//     backspaceSwitch = true;
-//     if (opSwitch === false) {
-//         acc = acc.slice(0, -1);
-//         updateDisplay();
-//     }
-//     if (opOn) {
-//         operator = '';
-//         opOn = false;
-//         updateDisplay();
-//     }
-//     if (num2On) {
-//         number2 = number2.slice(0, -1);
-//         updateDisplay();
-//     }
-// });
+backspace.addEventListener('click', getBackspace);
+
+// Sign Change
+signChange.addEventListener('click', changeSign);
+
 
 // on Key
 document.addEventListener('keydown', function (k) {
+    k.preventDefault();
+
     if (k.key === '1') getNum(one);
     if (k.key === '2') getNum(two);
     if (k.key === '3') getNum(three);
@@ -234,6 +260,7 @@ document.addEventListener('keydown', function (k) {
     if (k.key === '8') getNum(eight);
     if (k.key === '9') getNum(nine);
     if (k.key === '0') getNum(zero);
+    if (k.key === '.') getNum(point);
 
     if (k.key === '+') getOp(add);
     if (k.key === '-') getOp(subtract);
@@ -241,7 +268,9 @@ document.addEventListener('keydown', function (k) {
     if (k.key === '/') getOp(divide);
     if (k.key === '%') getOp(remainer);
 
-    if (k.key === 'Enter' || k.key === '=') getEquals();
+    if (k.keyCode === 13 || k.key === '=') getEquals(); // equals
 
-    if (k.keyCode === 32) clearAll(); // spacebar
+    if (k.code === 'Space') clearAll(); // spacebar
+
+    if (k.keyCode === 8) getBackspace(); // backspace
 });
