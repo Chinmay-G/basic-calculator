@@ -72,7 +72,7 @@ body {
 .btn {
     font-size: 20px;
     color: rgb(192, 192, 192);
-    font-weight: 550;
+    font-weight: 600;
     background-color: rgb(70, 70, 70);
     border-radius: 8px;
 
@@ -83,20 +83,13 @@ body {
     height: 70px;
 }
 
-@media only screen and (max-height: 700px) {
-    .container {
-        padding-top: 55px;
-        padding-bottom: 5px;
-    }
-}
-
-/* @media only screen and (max-height: 700px) {
+@media only screen and (max-width: 700px) {
     * {
         scale: 0.9;
     }
 
     .container {
-        padding-top: 30px;
+        padding-top: 50px;
         padding-bottom: 5px;
     }
 
@@ -107,4 +100,4 @@ body {
     .btns {
         padding: 12px 0px;
     }
-} */
+}
