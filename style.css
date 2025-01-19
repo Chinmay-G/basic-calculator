@@ -6,6 +6,12 @@
     font-family: 'Orbitron', sans-serif;
 }
 
+body {
+    background-color: rgb(86, 86, 86);
+    background: rgb(46,46,46);
+    background: linear-gradient(90deg, rgba(46,46,46,1) 0%, rgba(95,90,90,1) 50%, rgba(49,49,49,1) 100%);
+}
+
 .main {
     height: 100vh;
     display: flex;
@@ -14,25 +20,27 @@
 }
 
 .container {
-    /* width: 30px;
-    height: 30px; */
-    border: 5px solid black;
-    background-color: blue;
     display: grid;
-    padding: 15px;
+    border-radius: 15px;
+    background-color: rgb(48, 48, 52);
+    box-shadow: 7px 7px rgb(28, 28, 28);
+    padding: 20px;
+    padding-top: 30px;
 }
 
 
 .display {
-    /* display: flex; */
-    background-color: aquamarine;
+    background: rgb(165,214,147);
+    background: linear-gradient(0deg, rgba(205,241,191,1) 0%, rgba(165,214,147,1) 77%);
+    border-radius: 10px;
+    margin: 0 10px;
     padding: 0 10px;
+    color: rgb(31, 31, 31);
 }
 
 .backDisplay {
     height: 40px;
     width: 100%;
-    /* border: 2px grey solid; */
 
     display: flex;
     justify-content:end;
@@ -50,13 +58,11 @@
     display: flex;
     justify-content:end;
     align-items: end;
-
-    /* border: 2px grey solid; */
 }
 
 .btns {
     padding: 10px;
-    padding-top: 20px;
+    padding-top: 25px;
     display: grid;
     grid-template-columns: repeat(4, 90px);
     grid-gap: 15px;
@@ -65,8 +71,10 @@
 
 .btn {
     font-size: 20px;
-    background-color: rgb(252, 235, 214);
-    border: 2px solid black;
+    color: rgb(192, 192, 192);
+    font-weight: 550;
+    background-color: rgb(70, 70, 70);
+    border-radius: 8px;
 
     display: flex;
     justify-content: center;
@@ -76,11 +84,20 @@
 }
 
 @media only screen and (max-height: 700px) {
-    body {
-      background-color: lightblue;
-    }
-
     * {
         scale: 0.9;
     }
-  }
+
+    .container {
+        padding-top: 30px;
+        padding-bottom: 5px;
+    }
+
+    .display {
+        margin: 0 5px;
+    }
+
+    .btns {
+        padding: 12px 0px;
+    }
+}
