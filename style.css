@@ -111,13 +111,13 @@ footer {
 
     p {
         text-align: center;
-        font-size: 30px;
-        margin: -5px 0 -10px 0;
+        font-size: 32px;
+        margin: -10px 0 -20px 0;
         /* font-weight: 600; */
     }
 
     .container {
-        padding-top: 50px;
+        padding-top: 60px;
         padding-bottom: 5px;
         border: 5px solid rgb(36, 36, 36);
         border-radius: 30px;
@@ -128,8 +128,18 @@ footer {
         margin: 0 5px;
     }
 
+    .backDisplay {
+        height: 50px;
+    }
+
+    .mainDisplay {
+        height: 110px;
+        font-size: 80px;
+    }
+
     .btns {
         padding: 12px 0px;
+        padding-top: 35px;
     }
 
     .btn {
@@ -139,7 +149,6 @@ footer {
 
     footer {
         text-align: center;
-        margin-top: 0;
-        margin-right: 0;
+        margin: -10px 0 0 0;
     }
 }
